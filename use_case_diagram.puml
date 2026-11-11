@@ -1,0 +1,81 @@
+@startuml Gambar_4_1_Use_Case_Diagram
+!theme plain
+skinparam handwritten false
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 10
+
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 12
+
+' Styling Aktor
+skinparam actor {
+    BackgroundColor #E2E8F0
+    BorderColor #1E293B
+    FontColor #0F172A
+    FontSize 13
+    FontStyle bold
+}
+
+' Styling Use Case (Lingkaran Lonjong)
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    FontColor #0F172A
+    FontSize 12
+    ArrowColor #2563EB
+}
+
+' Styling Kotak Batasan Sistem
+skinparam rectangle {
+    BackgroundColor #F8FAFC
+    BorderColor #64748B
+    BorderThickness 1.5
+    FontColor #0F172A
+    FontSize 14
+    FontStyle bold
+}
+
+left to right direction
+
+' Definisi Aktor
+actor "Administrator\n(Owner / Gudang)" as Admin
+actor "Kasir\n(Staf Penjualan)" as Kasir
+
+' Batasan Sistem dan Kumpulan Use Case
+rectangle "Sistem Informasi Persediaan Barang CB Jaya Textile" {
+    usecase "UC-01 Login & Logout" as UC1
+    usecase "UC-02 Kelola Data Produk Kain" as UC2
+    usecase "UC-03 Pencarian & Cek Stok Kain" as UC3
+    usecase "UC-04 Pencatatan Barang Masuk (Batch)" as UC4
+    usecase "UC-05 Transaksi Penjualan Kasir" as UC5
+    usecase "UC-06 Eksekusi Algoritma FIFO" as UC6
+    usecase "UC-07 Cetak Nota Penjualan" as UC7
+    usecase "UC-08 Monitoring Riwayat Audit FIFO" as UC8
+    usecase "UC-09 Kelola Mitra (Supplier & Pelanggan)" as UC9
+    usecase "UC-10 Rekapitulasi Laporan & Ekspor CSV" as UC10
+
+    ' Hubungan Include dan Extend
+    UC5 ..> UC6 : <<include>>
+    UC7 ..> UC5 : <<extend>>
+}
+
+' Hubungan Aktor Administrator
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+
+' Hubungan Aktor Kasir
+Kasir --> UC1
+Kasir --> UC3
+Kasir --> UC5
+Kasir --> UC7
+
+@enduml
